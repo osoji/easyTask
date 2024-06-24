@@ -1,32 +1,18 @@
-import { Component, computed, signal } from '@angular/core';
-
-import { DUMMY_USERS } from '../dummy-users';
-
-//Give me random number between zero(0) and the heighest available number in DUMMY_USERS
-const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length)
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-user',
   standalone: true,
   templateUrl: './user.component.html',
-  styleUrl: './user.component.css'
+  styleUrl: './user.component.css',
 })
 export class UserComponent {
-  selectedUser = signal( DUMMY_USERS[randomIndex]);
-  imagePath = computed(()=> 'assets/users/' + this.selectedUser().avatar)
+  @Input() avatar!: string;
+  @Input() name!: string;
 
-  // get imagePath(){
-  //   return 'assets/users/' + this.selectedUser.avatar
-  // }
-
-  get userName(){
-    return this.selectedUser().name
+  get imagePath() {
+    return 'assets/users/' + this.avatar;
   }
 
-  //How to listening to event e.g click event and state management
-  onSelectUser(){
-    const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length)
-    this.selectedUser.set(DUMMY_USERS[randomIndex]);
-  }
-
+  onSelectUser() {}
 }
