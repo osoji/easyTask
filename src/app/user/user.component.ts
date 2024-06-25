@@ -1,18 +1,5 @@
-import { Component, EventEmitter, Input, Output, input, output } from '@angular/core';
-
-// type User ={
-//   id: string,
-//   avatar: string,
-//   name: string
-// };
-
-//Or
-
-interface User{
-  id: string,
-  avatar: string,
-  name: string
-}
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { type User } from './user.model';
 
 @Component({
   selector: 'app-user',
@@ -44,7 +31,8 @@ export class UserComponent {
   // };
 
   //Better way
-  @Input({required:true}) user!:User;
+  @Input({ required: true }) user!: User;
+  @Input({required:true}) selected!: boolean;
 
   //function methed for input
   // id = input.required<string>();
