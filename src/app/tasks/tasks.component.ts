@@ -1,17 +1,19 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TaskComponent } from './task/task.component';
 import { trigger } from '@angular/animations';
+import { NewTaskComponent } from "./new-task/new-task.component";
 
 @Component({
-  selector: 'app-tasks',
-  standalone: true,
-  imports: [TaskComponent],
-  templateUrl: './tasks.component.html',
-  styleUrl: './tasks.component.css',
+    selector: 'app-tasks',
+    standalone: true,
+    templateUrl: './tasks.component.html',
+    styleUrl: './tasks.component.css',
+    imports: [TaskComponent, NewTaskComponent]
 })
 export class TasksComponent {
   @Input({ required: true }) userId!: string;
   @Input({ required: true }) name!: string;
+  isAddinTask = false;
 
   //This is the same with the upper code
   //@Input() name: string | undefined
@@ -42,12 +44,19 @@ export class TasksComponent {
     },
   ];
 
-
-  get selectedUserTasks(){
-    return this.tasks.filter((task)=>task.userId === this.userId);
+  get selectedUserTasks() {
+    return this.tasks.filter((task) => task.userId === this.userId);
   }
 
-  onCompleteTask(id:string){
-    this.tasks = this.selectedUserTasks.filter((task)=>task.id !== id);
+  onCompleteTask(id: string) {
+    this.tasks = this.selectedUserTasks.filter((task) => task.id !== id);
+  }
+
+  onStartAddTask() {
+    this.isAddinTask = true;
+  }
+
+  onCancelAddTask(){
+    this.isAddinTask = false;
   }
 }
